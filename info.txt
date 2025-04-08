@@ -2162,3 +2162,6 @@ jsp
 
 Если у тебя есть конкретный формат или инструмент, который ты предпочитаешь (например, Word, Google Docs), напиши, и я подскажу, как адаптировать процесс!
 
+
+
+https://www.figma.com/community/website-templates/landing-pages?resource_type=mixed&editor_type=figma&price=all&sort_by=all_time&creators=all
