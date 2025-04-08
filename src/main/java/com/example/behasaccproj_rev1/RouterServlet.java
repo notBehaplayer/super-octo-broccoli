@@ -25,6 +25,9 @@ public class RouterServlet extends HttpServlet {
             case "login" -> "/WEB-INF/views/login.jsp";
             case "terms" -> "/WEB-INF/views/terms.jsp";
             case "privacy" -> "/WEB-INF/views/privacy.jsp";
+            case "reset-password" -> "/WEB-INF/views/resetpassword.jsp";
+            case "profile" -> "/WEB-INF/views/profile.jsp";
+            case "register" -> "/WEB-INF/views/register.jsp"; // Это для отображения результата, если нужно
             default -> "/WEB-INF/views/error.jsp";
         };
 
@@ -34,6 +37,12 @@ public class RouterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String page = request.getParameter("page");
+        if ("register".equals(page)) {
+            // Перенаправляем POST-запрос на RegisterServlet
+            request.getRequestDispatcher("/register").forward(request, response);
+        } else {
+            doGet(request, response); // Обрабатываем другие POST-запросы как GET
+        }
     }
 }

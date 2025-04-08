@@ -42,7 +42,7 @@
             </p>
             <% } %>
 
-            <form action="${pageContext.request.contextPath}/router?page=login" method="POST" id="signupForm">
+            <form action="${pageContext.request.contextPath}/register" method="POST" id="signupForm">
                 <div class="formBox__gridBox">
                     <div class="formBox__inputBox">
                         <label class="inputBox__label" for="firstName">First Name</label>
@@ -57,8 +57,7 @@
                     <div class="formBox__inputBox">
                         <label class="inputBox__label" for="email">Email</label>
                         <input class="inputBox__input" type="email" id="email" name="email" value="${param.email}"
-                               autocomplete="off"
-                               required>
+                               autocomplete="off" required>
                     </div>
                     <div class="formBox__inputBox">
                         <label class="inputBox__label" for="phoneNumber">Phone Number</label>
@@ -68,13 +67,21 @@
                 </div>
                 <div class="formBox__inputBox">
                     <label class="inputBox__label" for="password">Password</label>
-                    <input class="inputBox__input" type="password" id="password" name="password" autocomplete="off"
-                           required>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="password" name="password" autocomplete="off"
+                               required>
+                        <img class="inputBox__img" onclick="togglePassword()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye">
+                    </div>
                 </div>
                 <div class="formBox__inputBox">
                     <label class="inputBox__label" for="passwordConf">Confirm Password</label>
-                    <input class="inputBox__input" type="password" id="passwordConf" name="passwordConf"
-                           autocomplete="off" required>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="passwordConf" name="passwordConf"
+                               autocomplete="off" required>
+                        <img class="inputBox__img" onclick="togglePasswordConf()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye conf">
+                    </div>
                 </div>
 
                 <div class="formBox__agreement">
@@ -82,8 +89,8 @@
                     <label class="agreement__label" for="agreement">
                         I agree to the <a class="agreement__link scaleTransition"
                                           href="${pageContext.request.contextPath}/router?page=terms">Terms</a> and
-                        <a class="agreement__link scaleTransition" href="${pageContext.request.contextPath}/router?page=privacy">Privacy
-                            Policy</a>
+                        <a class="agreement__link scaleTransition"
+                           href="${pageContext.request.contextPath}/router?page=privacy">Privacy Policy</a>
                     </label>
                 </div>
 
@@ -107,6 +114,32 @@
             alert('Passwords do not match!');
         }
     });
+
+    function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = passwordInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+    }
+
+    function togglePasswordConf() {
+        const passwordConfInput = document.getElementById("passwordConf");
+        const eyeIcon = passwordConfInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+        if (passwordConfInput.type === "password") {
+            passwordConfInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordConfInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+    }
 </script>
 </body>
 </html>

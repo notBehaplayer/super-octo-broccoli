@@ -17,16 +17,9 @@
     <link href="${pageContext.request.contextPath}/css/reset.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
 </head>
-<%
-    String firstName = request.getParameter("firstName");
-    String lastName = request.getParameter("lastName");
-    String email = request.getParameter("email");
-    String phoneNumber = request.getParameter("phoneNumber");
-    String password = request.getParameter("password");
-    String passwordConf = request.getParameter("passwordConf");
-%>
-
 <body>
+<div id="popup" class="popup"></div>
+
 <header class="siteHeader" id="siteHeader">
     <div class="siteHeader__container container">
         <div class="siteHeader__imgBox scaleTransition">
@@ -50,20 +43,32 @@
             </p>
             <% } %>
 
-            <form action="${pageContext.request.contextPath}/router?page=login" method="POST" id="signupForm">
+            <form action="${pageContext.request.contextPath}/router?page=profile" method="POST" id="signupForm">
                 <div class="formBox__inputBox">
                     <label class="inputBox__label" for="email">Email</label>
-                    <input class="inputBox__input" type="email" id="email" name="email" value="${param.email}" required>
+                    <input class="inputBox__input" type="email" id="email" name="email" required>
                 </div>
 
                 <div class="formBox__inputBox">
                     <label class="inputBox__label" for="password">Password</label>
-                    <input class="inputBox__input" type="password" id="password" name="password" required>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="password" name="password" required>
+                        <img class="inputBox__img" onclick="togglePassword()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg"
+                             alt="closed eye">
+                    </div>
                 </div>
 
-                <div class="formBox__agreement">
-                    <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement" required>
-                    <label class="agreement__label" for="agreement">Remember me</label>
+                <div class="formBox__agreement formBox__loginAgreement">
+                    <div class="agreement__inputBox">
+                        <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement"
+                               required>
+                        <label class="agreement__label" for="agreement">Remember me</label>
+                    </div>
+                    <div class="agreement__linkBox scaleTransition">
+                        <a class="agreement__link" href="${pageContext.request.contextPath}/router?page=reset-password">Forgot
+                            password</a>
+                    </div>
                 </div>
 
                 <button type="submit" class="formBox__submit scaleTransition">Create Account</button>
@@ -81,6 +86,46 @@
         </div>
     </div>
 </main>
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".inputBox__img");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg"
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg"
+        }
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const error = urlParams.get('error');
+    const popup = document.getElementById('popup');
+
+    if (success === 'true') {
+        popup.textContent = 'Регистрация прошла успешно!';
+        setTimeout(() => {
+            popup.classList.add('success');
+        }, 100);
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.classList.remove('success');
+        }, 3000);
+    } else if (error) {
+        popup.textContent = decodeURIComponent(error);
+        setTimeout(() => {
+            popup.classList.add('error');
+        }, 100);
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.classList.remove('error');
+        }, 3000);
+    }
+</script>
 </body>
 </html>
 
