@@ -4,6 +4,9 @@
     --font-family: "Poppins", sans-serif;
     --second-family: "Montserrat", sans-serif;
     --third-family: "Red Hat Display", sans-serif;
+    --colors---heading: #333F99;
+    --colors---gray: #ebeaed;
+    --colors---text: rgba(21, 20, 57, 0.4);
 }
 
 body {
@@ -13,12 +16,19 @@ body {
     margin-top: 10px;
 }
 
+.siteHeader__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
 .siteHeader__title {
     font-family: var(--third-family), serif;
     font-weight: 700;
     font-size: 35px;
     line-height: 150%;
-    color: #313131;
+    color: var(--colors---heading);
 }
 
 .siteHeader__linkBox {
@@ -26,6 +36,11 @@ body {
     gap: 15px;
     align-items: center;
     justify-content: center;
+}
+
+.siteHeader__list {
+    display: flex;
+    gap: 20px;
 }
 
 .sliderBox__img {
@@ -124,7 +139,7 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-#signupForm {
+#signupForm, #loginForm, #resetPasswordForm, #setPasswordForm {
     display: grid;
     gap: 15px;
     margin-bottom: 15px;
@@ -145,12 +160,6 @@ body {
 .formBox__agreement {
     display: flex;
     align-items: center;
-    gap: 15px;
-}
-
-.siteHeader__linkBox {
-    display: flex;
-    justify-content: center;
     gap: 15px;
 }
 
@@ -175,7 +184,7 @@ body {
     top: 20px;
     left: 50%;
     max-width: 500px;
-    transform: translate(-50%, -150%);
+    transform: translate(-50%, -200%);
     padding: 15px 20px;
     background-color: #333;
     color: white;
@@ -186,13 +195,59 @@ body {
 }
 
 .popup.success {
-    background-color: #28a745; /* Зеленый для успеха */
+    background-color: #28a745;
     transform: translate(-50%, 0);
     transition: .4s ease all;
 }
 
 .popup.error {
-    background-color: #dc3545; /* Красный для ошибки */
+    background-color: #dc3545;
     transform: translate(-50%, 0);
     transition: .4s ease all;
+}
+
+.siteHeader__link {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 162%;
+    color: var(--colors---heading);
+}
+
+.siteHeader__link:hover {
+    color: #515DEF;
+}
+
+
+.siteHeader__authBox {
+    display: flex;
+    gap: 5px;
+}
+
+.authBox__link {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--colors---heading);
+    border: 2px solid var(--colors---gray);
+    border-radius: 100px;
+    padding: 10px 20px;
+}
+
+.siteMain {
+    min-height: 70vh;
+}
+
+.imgBox__title {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 162%;
+    text-align: center;
+    color: var(--colors---text);
+}
+
+.siteFooter__container{
+    display: flex;
+    justify-content: center;
 }

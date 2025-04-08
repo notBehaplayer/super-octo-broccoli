@@ -3,9 +3,6 @@
   User: 11-SINF
   Date: 07.04.2025
   Time: 9:02
-  To change this template use File | Settings | File Templates.
-  <% String firstName = request.getParameter("firstName");%>
-  <%=firstName%>
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
@@ -28,22 +25,38 @@
                 <h1 class="siteHeader__title">Loginner</h1>
             </a>
         </div>
+
+        <ul class="siteHeader__list">
+            <li class="siteHeader__item scaleTransition">
+                <a class="siteHeader__link">Home</a>
+            </li>
+            <li class="siteHeader__item scaleTransition">
+                <a class="siteHeader__link">Features</a>
+            </li>
+            <li class="siteHeader__item scaleTransition">
+                <a class="siteHeader__link">About</a>
+            </li>
+            <li class="siteHeader__item scaleTransition">
+                <a class="siteHeader__link">F.A.Q.</a>
+            </li>
+            <li class="siteHeader__item scaleTransition">
+                <a class="siteHeader__link">Support</a>
+            </li>
+        </ul>
+
+        <div class="siteHeader__authBox">
+            <a class="authBox__link scaleTransition" href="${pageContext.request.contextPath}/router?page=login">Login</a>
+            <a class="authBox__link scaleTransition" href="${pageContext.request.contextPath}/router?page=signup">Sign up</a>
+        </div>
     </div>
 </header>
 <main class="siteMain" id="siteMain">
     <div class="siteMain__container container">
-
-
         <div class="siteMain__formBox">
             <h2 class="formBox__title">Login</h2>
             <p class="formBox__text">Login to access your travel wise account.</p>
 
-            <% if (request.getAttribute("error") != null) { %>
-            <p class="error-message" style="color: red;"><%= request.getAttribute("error") %>
-            </p>
-            <% } %>
-
-            <form action="${pageContext.request.contextPath}/router?page=profile" method="POST" id="signupForm">
+            <form action="${pageContext.request.contextPath}/login" method="POST" id="loginForm">
                 <div class="formBox__inputBox">
                     <label class="inputBox__label" for="email">Email</label>
                     <input class="inputBox__input" type="email" id="email" name="email" required>
@@ -53,16 +66,14 @@
                     <label class="inputBox__label" for="password">Password</label>
                     <div class="formBox__passwordBox">
                         <input class="inputBox__input" type="password" id="password" name="password" required>
-                        <img class="inputBox__img" onclick="togglePassword()"
-                             src="${pageContext.request.contextPath}/img/close%20eye.svg"
-                             alt="closed eye">
+                        <img class="inputBox__img" onclick="togglePassword(this)"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye">
                     </div>
                 </div>
 
                 <div class="formBox__agreement formBox__loginAgreement">
                     <div class="agreement__inputBox">
-                        <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement"
-                               required>
+                        <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement">
                         <label class="agreement__label" for="agreement">Remember me</label>
                     </div>
                     <div class="agreement__linkBox scaleTransition">
@@ -71,7 +82,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="formBox__submit scaleTransition">Create Account</button>
+                <button type="submit" class="formBox__submit scaleTransition">Login</button>
             </form>
 
             <p class="siteMain__login">Don't have an account? <a class="agreement__link scaleTransition"
@@ -87,17 +98,27 @@
     </div>
 </main>
 
-<script>
-    function togglePassword() {
-        const passwordInput = document.getElementById("password");
-        const eyeIcon = document.querySelector(".inputBox__img");
+<footer class="siteFooter" id="siteFooter">
+    <div class="siteFooter__container siteHeader__container container">
+        <div class="siteHeader__imgBox scaleTransition">
+            <a class="siteHeader__linkBox" href="${pageContext.request.contextPath}/">
+                <img class="siteHeader__img" src="${pageContext.request.contextPath}/img/logo.svg" alt="Loginner Logo"/>
+                <h1 class="siteHeader__title">Loginner</h1>
+            </a>
 
+            <h1 class="imgBox__title">© 2025 Loginner. All rights reserved.</h1>
+        </div>
+    </div>
+</footer>
+<script>
+    function togglePassword(eyeIcon) {
+        const passwordInput = eyeIcon.closest(".formBox__passwordBox").querySelector("#password");
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg"
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
         } else {
             passwordInput.type = "password";
-            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg"
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
         }
     }
 
@@ -111,30 +132,36 @@
         setTimeout(() => {
             popup.classList.add('success');
         }, 100);
-        popup.style.display = 'block';
         setTimeout(() => {
             popup.classList.remove('success');
-        }, 3000);
+        }, 2000);
+    } else if (success === 'password_reset') {
+        popup.textContent = 'Пароль успешно сброшен! Войдите с новым паролем.';
+        setTimeout(() => {
+            popup.classList.add('success');
+        }, 100);
+        setTimeout(() => {
+            popup.classList.remove('success');
+        }, 2000);
     } else if (error) {
         popup.textContent = decodeURIComponent(error);
         setTimeout(() => {
             popup.classList.add('error');
         }, 100);
-        popup.style.display = 'block';
         setTimeout(() => {
             popup.classList.remove('error');
-        }, 3000);
+        }, 2000);
     }
+
+    <% if (request.getAttribute("error") != null) { %>
+    popup.textContent = '<%= request.getAttribute("error") %>';
+    setTimeout(() => {
+        popup.classList.add('error');
+    }, 100);
+    setTimeout(() => {
+        popup.classList.remove('error');
+    }, 2000);
+    <% } %>
 </script>
 </body>
 </html>
-
-
-<%--    <ul>--%>
-<%--        <li>Your credentials:</li>--%>
-<%--        <li>Your first name: <%=firstName%></li>--%>
-<%--        <li>Your last name: <%=lastName%></li>--%>
-<%--        <li>Your email: <%=email%></li>--%>
-<%--        <li>Your phone number: <%=phoneNumber%></li>--%>
-<%--        <li>Your password: <%=password%></li>--%>
-<%--    </ul>--%>

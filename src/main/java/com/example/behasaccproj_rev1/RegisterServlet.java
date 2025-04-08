@@ -31,10 +31,8 @@ public class RegisterServlet extends HttpServlet {
 
             int rows = pstmt.executeUpdate();
             if (rows > 0) {
-                // Успешная регистрация: перенаправляем с параметром success
                 response.sendRedirect(request.getContextPath() + "/router?page=login&success=true");
             } else {
-                // Ошибка: перенаправляем с параметром error
                 response.sendRedirect(request.getContextPath() + "/router?page=login&error=Ошибка+регистрации");
             }
 
@@ -42,7 +40,6 @@ public class RegisterServlet extends HttpServlet {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            // Ошибка с сообщением об исключении
             String errorMessage = java.net.URLEncoder.encode("Ошибка: " + e.getMessage(), "UTF-8");
             response.sendRedirect(request.getContextPath() + "/router?page=login&error=" + errorMessage);
         }
