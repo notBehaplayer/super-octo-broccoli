@@ -1,0 +1,82 @@
+/* Reset all margins, paddings, and box sizing */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    transition: .4s ease all;
+}
+
+/* Reset typography */
+body {
+    font-family: sans-serif;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Remove default list styles */
+ul, ol {
+    list-style: none;
+}
+
+/* Remove default link styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Reset images */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Reset form elements */
+input, button, textarea, select {
+    font: inherit;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+/* Make buttons inherit cursor */
+button {
+    cursor: pointer;
+}
+
+/* Remove table spacing */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* Adjust this for your preferred max width */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Add some padding on small screens */
+    box-sizing: border-box;
+}
+
+.checkbox{
+    cursor: pointer;
+}
+
+.scaleTransition {
+    transition: 0.4s ease all;
+    cursor: pointer;
+}
+
+.scaleTransition:hover {
+    transform: scale(1.05);
+}
+
+.scaleTransition:active {
+    transform: scale(1);
+}

@@ -1,0 +1,2167 @@
+Сброс пароля - Grok
+
+
+
+pfp
+Как назвать page на моем сайте который будет отвечать за резет пассворда
+
+
+
+
+Для страницы на сайте, которая будет отвечать за сброс пароля, можно выбрать название, которое будет интуитивно понятно пользователям и соответствовать функционалу. Вот несколько идей на русском и английском (в зависимости от языка твоего сайта):
+
+На русском:
+"Сброс пароля" — простое и прямолинейное название.
+"Восстановление пароля" — звучит чуть мягче и тоже понятно.
+"Забыли пароль?" — вопросительный стиль, часто используемый на сайтах.
+"Изменение пароля" — если сброс подразумевает последующее изменение.
+На английском (если сайт на английском):
+"Reset Password" — стандартное и понятное название.
+"Password Recovery" — популярный вариант для восстановления доступа.
+"Forgot Password?" — часто используется в интерфейсах.
+"Change Password" — если акцент на замене пароля.
+Рекомендация:
+Если это русскоязычный сайт, я бы выбрал "Сброс пароля" — коротко, ясно и соответствует действию. Для URL можно использовать что-то вроде /reset-password (если на английском) или /sbros-parolya (если транслитерация). Главное, чтобы название было логичным и удобным для пользователей.
+
+
+
+
+
+CREATE TABLE if not exists users (
+    id serial PRIMARY KEY, -- уникальный ID, автоинкремент
+    first_name VARCHAR(50) NOT NULL,  -- имя
+    last_name VARCHAR(50) NOT NULL,   -- фамилия
+    email VARCHAR(100) NOT NULL UNIQUE, -- email, уникальный
+    phone_number VARCHAR(20),         -- номер телефона
+    password VARCHAR(255) NOT NULL    -- пароль (лучше хранить хэш)
+);
+
+select * from users;
+
+
+
+а как назвать jsp файл?
+
+
+
+
+Название JSP-файла для страницы сброса пароля должно быть лаконичным, отражать его назначение и следовать общим практикам именования в веб-разработке. JSP-файлы обычно используют английский язык для имен, даже если сайт на русском, так как это связано с кодовой базой и стандартами разработки. Вот несколько вариантов:
+
+resetPassword.jsp
+Прямое и понятное название, отражает функционал сброса пароля. Используется camelCase, что часто встречается в именовании файлов.
+passwordReset.jsp
+Альтернативный порядок слов, тоже популярный и читаемый.
+forgotPassword.jsp
+Если страница предназначена для сценария "Забыли пароль?", это хороший выбор.
+recoverPassword.jsp
+Подходит, если акцент на восстановлении пароля.
+Рекомендация:
+Если это основная страница для сброса пароля, я бы выбрал resetPassword.jsp — это стандартное и универсальное название.
+Убедись, что имя файла соответствует URL-маппингу в твоем проекте (например, /reset-password может вести к resetPassword.jsp).
+Используй строчные буквы (например, resetpassword.jsp), если в проекте принят такой стиль, чтобы избежать проблем с чувствительностью к регистру на серверах.
+Пример структуры:
+
+URL: http://example.com/reset-password
+Файл: resetPassword.jsp
+
+
+
+
+
+
+#1c1b1f - это цвет моего инпута, но я сделал бг черным и теперь не видно инпута дай мне цвет для инпута
+
+
+
+
+Цвет #1c1b1f — это очень темный серо-черный оттенок, и если фон у тебя черный (#000000), то инпут действительно сливается с фоном. Чтобы инпут был виден на черном фоне, нужно выбрать цвет, который обеспечит достаточный контраст, но при этом будет гармонировать с темной темой. Вот несколько вариантов:
+
+Варианты цветов для инпута:
+Светло-серый: #d3d3d3 или #cccccc
+Хорошо контрастирует с черным фоном, легко читается, подходит для текста или границы инпута.
+Темно-серый: #4a4a4a или #5e5e5e
+Более мягкий контраст, сохраняет темную эстетику, но инпут будет заметен.
+Белый: #ffffff
+Максимальный контраст, если тебе нужен яркий акцент.
+Тусклый белый: #e0e0e0
+Чуть менее яркий, чем чистый белый, но все еще хорошо виден.
+Цветной акцент (например, синий): #1e90ff
+Если хочешь добавить немного цвета, сохраняя читаемость.
+Рекомендация:
+Для темной темы я бы выбрал #5e5e5e для фона инпута (если это заливка) или для границы, а текст внутри сделал бы #e0e0e0.
+Пример CSS:
+css
+
+Свернуть
+
+Перенос
+
+Копировать
+input {
+    background-color: #5e5e5e; /* фон инпута */
+    color: #e0e0e0; /* цвет текста */
+    border: 1px solid #5e5e5e; /* опционально, если нужна граница */
+}
+body {
+    background-color: #000000; /* черный фон страницы */
+}
+Если у тебя конкретные предпочтения по стилю (например, только границы или только текст), уточни, и я подберу более точный вариант!
+
+
+
+
+
+
+
+А к примеру у меня есть инпут с тайпом пассворд, как мне сделать так чтобы была иконка глазика и чтобы она показывала пароль принажатии?
+
+
+
+
+Чтобы добавить иконку "глазика" в инпут с типом password и переключать видимость пароля при нажатии, нужно использовать HTML, CSS и немного JavaScript. Вот пошаговое решение:
+
+1. HTML-структура
+Создай инпут и добавь рядом элемент для иконки (например, <span> или <button>). Оберни их в контейнер для удобного стилирования.
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<div class="password-container">
+    <input type="password" id="password" placeholder="Введите пароль">
+    <span class="eye-icon" onclick="togglePassword()">👁️</span>
+</div>
+2. CSS-стили
+Стилизуй инпут и иконку, чтобы они выглядели как единое целое. Например:
+
+css
+
+Свернуть
+
+Перенос
+
+Копировать
+.password-container {
+    position: relative;
+    width: 200px; /* ширина по твоему усмотрению */
+}
+
+#password {
+    width: 100%;
+    padding: 8px;
+    background-color: #5e5e5e; /* твой новый цвет инпута */
+    color: #e0e0e0; /* цвет текста */
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #e0e0e0; /* цвет иконки */
+    font-size: 18px;
+}
+position: absolute для иконки размещает её внутри инпута.
+top: 50% и transform: translateY(-50%) центрируют иконку вертикально.
+3. JavaScript для переключения
+Добавь функцию, которая будет менять тип инпута с password на text и обратно, а также обновлять иконку (например, "глаз" → "глаз с чертой").
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.querySelector(".eye-icon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.textContent = "🙈"; // иконка "скрыть"
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.textContent = "👁️"; // иконка "показать"
+    }
+}
+Полный пример
+html
+
+Предварительный просмотр
+
+Свернуть
+
+Перенос
+
+Копировать
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Toggle</title>
+    <style>
+        body {
+            background-color: #000000;
+        }
+        .password-container {
+            position: relative;
+            width: 200px;
+        }
+        #password {
+            width: 100%;
+            padding: 8px;
+            background-color: #5e5e5e;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #e0e0e0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-container">
+        <input type="password" id="password" placeholder="Введите пароль">
+        <span class="eye-icon" onclick="togglePassword()">👁️</span>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.querySelector(".eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.textContent = "👁️";
+            }
+        }
+    </script>
+</body>
+</html>
+Объяснение:
+При клике на иконку вызывается функция togglePassword().
+Функция проверяет текущий тип инпута и меняет его:
+password → text (показывает пароль).
+text → password (скрывает пароль).
+Иконка меняется для визуальной обратной связи.
+Дополнительно:
+Если хочешь использовать кастомную иконку (например, SVG), замени textContent на изменение классов или innerHTML.
+Для JSP можешь встроить этот код в свой resetPassword.jsp, просто добавив его в <body> или подключив отдельные файлы CSS/JS.
+Попробуй, и если что-то нужно доработать, дай знать!
+
+
+
+
+
+
+
+слушай а вот у меня есть картинка как мне через js поменять ее src?
+
+
+
+
+Чтобы поменять атрибут src у картинки через JavaScript, нужно найти элемент <img> (например, по id, классу или другим селекторам) и обновить его свойство src. Вот несколько способов это сделать:
+
+1. Простой пример с id
+Если у твоей картинки есть id, это самый прямой способ.
+
+HTML:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<img id="myImage" src="old-image.jpg" alt="Картинка">
+JavaScript:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+// Находим элемент <img> по id
+const image = document.getElementById("myImage");
+
+// Меняем src на новый путь
+image.src = "new-image.jpg";
+2. Если картинка найдена по классу
+Если у картинки есть класс, а не id, можно использовать querySelector.
+
+HTML:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<img class="myImage" src="old-image.jpg" alt="Картинка">
+JavaScript:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+// Находим элемент <img> по классу
+const image = document.querySelector(".myImage");
+
+// Меняем src
+image.src = "new-image.jpg";
+3. Динамическая смена (например, по клику)
+Если ты хочешь менять src при каком-то событии, например, при клике на кнопку:
+
+HTML:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<img id="myImage" src="old-image.jpg" alt="Картинка">
+<button onclick="changeImage()">Сменить картинку</button>
+JavaScript:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+function changeImage() {
+    const image = document.getElementById("myImage");
+    image.src = "new-image.jpg";
+}
+4. Смена на основе условия
+Если нужно менять src в зависимости от ситуации, можно использовать логику:
+
+HTML:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<img id="myImage" src="eye-open.png" alt="Иконка глаза">
+JavaScript:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+function toggleImage() {
+    const image = document.getElementById("myImage");
+    // Если текущий src содержит "eye-open", меняем на "eye-closed", и наоборот
+    if (image.src.includes("eye-open.png")) {
+        image.src = "eye-closed.png";
+    } else {
+        image.src = "eye-open.png";
+    }
+}
+Применение к твоему случаю
+Если ты хочешь, например, менять иконку "глазика" в инпуте с паролем (из твоего предыдущего вопроса), можно сделать так:
+
+HTML:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<div class="password-container">
+    <input type="password" id="password" placeholder="Введите пароль">
+    <img id="eyeIcon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword()">
+</div>
+JavaScript:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.src = "eye-closed.png"; // иконка "скрыть"
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.src = "eye-open.png"; // иконка "показать"
+    }
+}
+CSS (для стилизации):
+
+css
+
+Свернуть
+
+Перенос
+
+Копировать
+.password-container {
+    position: relative;
+    width: 200px;
+}
+#password {
+    width: 100%;
+    padding: 8px;
+    background-color: #5e5e5e;
+    color: #e0e0e0;
+    border: none;
+}
+#eyeIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px; /* размер иконки */
+}
+Важные замечания:
+Путь к файлу: Убедись, что путь в image.src правильный (относительный или абсолютный). Например, если картинка лежит в папке images, пиши images/new-image.jpg.
+Проверка загрузки: Если картинка не загружается, можно добавить обработчик ошибок:
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+image.onerror = () => {
+    console.log("Ошибка загрузки картинки");
+    image.src = "fallback-image.jpg"; // запасная картинка
+};
+JSP-контекст: Если ты работаешь с JSP, убедись, что пути к картинкам задаются относительно корня твоего веб-приложения. Например, используй ${pageContext.request.contextPath}/images/eye-open.png.
+Если у тебя есть конкретный пример (например, где находится картинка или как ты хочешь её менять), напиши, и я адаптирую код!
+
+
+
+
+
+
+
+а если у меня несколько таких инпутов?
+
+
+
+
+Если у тебя несколько инпутов с паролями и иконками "глазика", нужно сделать код универсальным, чтобы он работал для каждого инпута независимо. Для этого можно использовать классы вместо id и передавать контекст (например, текущий инпут и его иконку) в функцию. Вот как это можно реализовать:
+
+1. HTML-структура
+Добавь несколько инпутов с одинаковыми классами для контейнера, инпута и иконки:
+
+html
+
+Свернуть
+
+Перенос
+
+Копировать
+<div class="password-container">
+    <input type="password" class="password-input" placeholder="Пароль 1">
+    <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+</div>
+
+<div class="password-container">
+    <input type="password" class="password-input" placeholder="Пароль 2">
+    <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+</div>
+
+<div class="password-container">
+    <input type="password" class="password-input" placeholder="Пароль 3">
+    <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+</div>
+this в onclick="togglePassword(this)" передаёт текущую иконку в функцию, чтобы знать, с каким элементом мы работаем.
+2. CSS-стили
+Стили остаются такими же, но теперь они применяются к классам:
+
+css
+
+Свернуть
+
+Перенос
+
+Копировать
+.password-container {
+    position: relative;
+    width: 200px;
+    margin: 10px 0; /* расстояние между инпутами */
+}
+
+.password-input {
+    width: 100%;
+    padding: 8px;
+    background-color: #5e5e5e;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+}
+3. JavaScript
+Функция togglePassword теперь принимает текущую иконку (eyeIcon) и находит связанный с ней инпут через родительский контейнер:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+function togglePassword(eyeIcon) {
+    // Находим ближайший контейнер
+    const container = eyeIcon.closest(".password-container");
+    // Находим инпут внутри этого контейнера
+    const passwordInput = container.querySelector(".password-input");
+
+    // Переключаем тип инпута и меняем src иконки
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.src = "eye-closed.png"; // иконка "скрыть"
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.src = "eye-open.png"; // иконка "показать"
+    }
+}
+Как это работает:
+Когда ты кликаешь на иконку, this передаёт объект <img> (иконку) в функцию.
+closest(".password-container") находит родительский контейнер, чтобы работать только с текущим инпутом и иконкой.
+querySelector(".password-input") находит инпут внутри этого контейнера.
+Логика переключения типа и смены src применяется только к этому конкретному инпуту и иконке.
+Полный пример:
+html
+
+Предварительный просмотр
+
+Свернуть
+
+Перенос
+
+Копировать
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiple Password Inputs</title>
+    <style>
+        body {
+            background-color: #000000;
+        }
+        .password-container {
+            position: relative;
+            width: 200px;
+            margin: 10px 0;
+        }
+        .password-input {
+            width: 100%;
+            padding: 8px;
+            background-color: #5e5e5e;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-container">
+        <input type="password" class="password-input" placeholder="Пароль 1">
+        <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+    </div>
+    <div class="password-container">
+        <input type="password" class="password-input" placeholder="Пароль 2">
+        <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+    </div>
+    <div class="password-container">
+        <input type="password" class="password-input" placeholder="Пароль 3">
+        <img class="eye-icon" src="eye-open.png" alt="Показать пароль" onclick="togglePassword(this)">
+    </div>
+
+    <script>
+        function togglePassword(eyeIcon) {
+            const container = eyeIcon.closest(".password-container");
+            const passwordInput = container.querySelector(".password-input");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.src = "eye-closed.png";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = "eye-open.png";
+            }
+        }
+    </script>
+</body>
+</html>
+Преимущества:
+Код работает для любого количества инпутов без изменений.
+Каждый "глазик" управляет только своим инпутом.
+Легко масштабируется: добавляй новые .password-container с инпутом и иконкой, и всё будет работать.
+Замечания:
+Убедись, что пути к картинкам (eye-open.png и eye-closed.png) правильные.
+Если используешь JSP, можешь вставить этот HTML в свой .jsp-файл, а JS и CSS подключить отдельно или встроить через <script> и <style>.
+Если что-то нужно уточнить или доработать, дай знать!
+
+
+
+
+
+
+
+Вот мой html
+
+<%--
+  Created by IntelliJ IDEA.
+  User: 11-SINF
+  Date: 04.04.2025
+  Time: 12:49
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Loginner</title>
+    <link href="${pageContext.request.contextPath}/css/reset.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="siteHeader" id="siteHeader">
+    <div class="siteHeader__container container">
+        <div class="siteHeader__imgBox scaleTransition">
+            <a class="siteHeader__linkBox" href="${pageContext.request.contextPath}/">
+                <img class="siteHeader__img" src="${pageContext.request.contextPath}/img/logo.svg" alt="Loginner Logo"/>
+                <h1 class="siteHeader__title">Loginner</h1>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="siteMain" id="siteMain">
+    <div class="siteMain__container container">
+        <div class="siteMain__sliderBox scaleTransition">
+            <img class="sliderBox__img" src="${pageContext.request.contextPath}/img/sign%20up%20image.png"
+                 alt="Sign Up Illustration"/>
+        </div>
+
+        <div class="siteMain__formBox">
+            <h2 class="formBox__title">Sign Up</h2>
+            <p class="formBox__text">Let’s get you set up to access your personal account.</p>
+
+            <% if (request.getAttribute("error") != null) { %>
+            <p class="error-message" style="color: red;"><%= request.getAttribute("error") %>
+            </p>
+            <% } %>
+
+            <form action="${pageContext.request.contextPath}/router?page=login" method="POST" id="signupForm">
+                <div class="formBox__gridBox">
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="firstName">First Name</label>
+                        <input class="inputBox__input" type="text" id="firstName" name="firstName"
+                               value="${param.firstName}" autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="lastName">Last Name</label>
+                        <input class="inputBox__input" type="text" id="lastName" name="lastName"
+                               value="${param.lastName}" autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="email">Email</label>
+                        <input class="inputBox__input" type="email" id="email" name="email" value="${param.email}"
+                               autocomplete="off"
+                               required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="phoneNumber">Phone Number</label>
+                        <input class="inputBox__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="off"
+                               value="${param.phoneNumber}" required>
+                    </div>
+                </div>
+                <div class="formBox__inputBox">
+                    <label class="inputBox__label" for="password">Password</label>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="password" name="password" autocomplete="off"
+                               required>
+                        <img class="inputBox__img" onclick="togglePassword()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye">
+                    </div>
+
+                </div>
+                <div class="formBox__inputBox">
+                    <label class="inputBox__label" for="passwordConf">Confirm Password</label>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="passwordConf" name="passwordConf"
+                               autocomplete="off" required>
+                        <img class="inputBox__img" onclick="togglePasswordConf()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg"
+                             alt="closed eye conf">
+                    </div>
+                </div>
+
+                <div class="formBox__agreement">
+                    <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement" required>
+                    <label class="agreement__label" for="agreement">
+                        I agree to the <a class="agreement__link scaleTransition"
+                                          href="${pageContext.request.contextPath}/router?page=terms">Terms</a> and
+                        <a class="agreement__link scaleTransition"
+                           href="${pageContext.request.contextPath}/router?page=privacy">Privacy
+                            Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="formBox__submit scaleTransition">Create Account</button>
+            </form>
+
+            <p class="siteMain__login">Already have an account? <a class="agreement__link scaleTransition"
+                                                                   href="${pageContext.request.contextPath}/router?page=login">Login</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+        const password = document.getElementById('password').value;
+        const passwordConf = document.getElementById('passwordConf').value;
+
+        if (password !== passwordConf) {
+            event.preventDefault();
+            alert('Passwords do not match!');
+        }
+    });
+
+    function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".inputBox__img");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+
+
+    }
+
+    function togglePasswordConf(){
+        const passwordConfInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".inputBox__img");
+
+        if (passwordConfInput.type === "password") {
+            passwordConfInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordConfInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+    }
+</script>
+</body>
+</html>
+
+
+
+
+Я посмотрел твой HTML-код и заметил, что у тебя есть два инпута с паролями (password и passwordConf), каждый со своей иконкой "глазика". Однако в текущем JavaScript есть проблемы:
+
+В функции togglePasswordConf ты используешь passwordConfInput, но обращаешься к элементу с id="password", а должен к id="passwordConf".
+В обеих функциях ты используешь document.querySelector(".inputBox__img"), что всегда возвращает первую иконку на странице, а не ту, которая соответствует конкретному инпуту. Из-за этого обе функции меняют одну и ту же иконку.
+Давай исправим это, чтобы каждая иконка работала со своим инпутом.
+
+Исправленный JavaScript
+Вот обновлённый код с учётом двух инпутов:
+
+javascript
+
+Свернуть
+
+Перенос
+
+Копировать
+document.getElementById('signupForm').addEventListener('submit', function (event) {
+    const password = document.getElementById('password').value;
+    const passwordConf = document.getElementById('passwordConf').value;
+
+    if (password !== passwordConf) {
+        event.preventDefault();
+        alert('Passwords do not match!');
+    }
+});
+
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    // Находим иконку внутри того же .formBox__passwordBox, что и инпут
+    const eyeIcon = passwordInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+    }
+}
+
+function togglePasswordConf() {
+    const passwordConfInput = document.getElementById("passwordConf");
+    // Находим иконку внутри того же .formBox__passwordBox, что и инпут
+    const eyeIcon = passwordConfInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+    if (passwordConfInput.type === "password") {
+        passwordConfInput.type = "text";
+        eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+    } else {
+        passwordConfInput.type = "password";
+        eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+    }
+}
+Что изменилось:
+Поиск иконки: Вместо document.querySelector(".inputBox__img"), который берёт первую иконку на странице, я использую closest(".formBox__passwordBox") для поиска родительского контейнера .formBox__passwordBox, а затем querySelector(".inputBox__img") внутри него. Это гарантирует, что каждая функция работает только со своей иконкой.
+Исправлен ID: В togglePasswordConf теперь используется passwordConfInput с правильным id="passwordConf".
+Полный исправленный код
+Вот твой JSP с обновлённым <script>:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<%--
+  Created by IntelliJ IDEA.
+  User: 11-SINF
+  Date: 04.04.2025
+  Time: 12:49
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Loginner</title>
+    <link href="${pageContext.request.contextPath}/css/reset.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="siteHeader" id="siteHeader">
+    <div class="siteHeader__container container">
+        <div class="siteHeader__imgBox scaleTransition">
+            <a class="siteHeader__linkBox" href="${pageContext.request.contextPath}/">
+                <img class="siteHeader__img" src="${pageContext.request.contextPath}/img/logo.svg" alt="Loginner Logo"/>
+                <h1 class="siteHeader__title">Loginner</h1>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="siteMain" id="siteMain">
+    <div class="siteMain__container container">
+        <div class="siteMain__sliderBox scaleTransition">
+            <img class="sliderBox__img" src="${pageContext.request.contextPath}/img/sign%20up%20image.png"
+                 alt="Sign Up Illustration"/>
+        </div>
+
+        <div class="siteMain__formBox">
+            <h2 class="formBox__title">Sign Up</h2>
+            <p class="formBox__text">Let’s get you set up to access your personal account.</p>
+
+            <% if (request.getAttribute("error") != null) { %>
+            <p class="error-message" style="color: red;"><%= request.getAttribute("error") %>
+            </p>
+            <% } %>
+
+            <form action="${pageContext.request.contextPath}/router?page=login" method="POST" id="signupForm">
+                <div class="formBox__gridBox">
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="firstName">First Name</label>
+                        <input class="inputBox__input" type="text" id="firstName" name="firstName"
+                               value="${param.firstName}" autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="lastName">Last Name</label>
+                        <input class="inputBox__input" type="text" id="lastName" name="lastName"
+                               value="${param.lastName}" autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="email">Email</label>
+                        <input class="inputBox__input" type="email" id="email" name="email" value="${param.email}"
+                               autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="phoneNumber">Phone Number</label>
+                        <input class="inputBox__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="off"
+                               value="${param.phoneNumber}" required>
+                    </div>
+                </div>
+                <div class="formBox__inputBox">
+                    <label class="inputBox__label" for="password">Password</label>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="password" name="password" autocomplete="off"
+                               required>
+                        <img class="inputBox__img" onclick="togglePassword()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye">
+                    </div>
+                </div>
+                <div class="formBox__inputBox">
+                    <label class="inputBox__label" for="passwordConf">Confirm Password</label>
+                    <div class="formBox__passwordBox">
+                        <input class="inputBox__input" type="password" id="passwordConf" name="passwordConf"
+                               autocomplete="off" required>
+                        <img class="inputBox__img" onclick="togglePasswordConf()"
+                             src="${pageContext.request.contextPath}/img/close%20eye.svg" alt="closed eye conf">
+                    </div>
+                </div>
+
+                <div class="formBox__agreement">
+                    <input class="agreement__input checkbox" type="checkbox" id="agreement" name="agreement" required>
+                    <label class="agreement__label" for="agreement">
+                        I agree to the <a class="agreement__link scaleTransition"
+                                          href="${pageContext.request.contextPath}/router?page=terms">Terms</a> and
+                        <a class="agreement__link scaleTransition"
+                           href="${pageContext.request.contextPath}/router?page=privacy">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="formBox__submit scaleTransition">Create Account</button>
+            </form>
+
+            <p class="siteMain__login">Already have an account? <a class="agreement__link scaleTransition"
+                                                                   href="${pageContext.request.contextPath}/router?page=login">Login</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+        const password = document.getElementById('password').value;
+        const passwordConf = document.getElementById('passwordConf').value;
+
+        if (password !== passwordConf) {
+            event.preventDefault();
+            alert('Passwords do not match!');
+        }
+    });
+
+    function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = passwordInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+    }
+
+    function togglePasswordConf() {
+        const passwordConfInput = document.getElementById("passwordConf");
+        const eyeIcon = passwordConfInput.closest(".formBox__passwordBox").querySelector(".inputBox__img");
+
+        if (passwordConfInput.type === "password") {
+            passwordConfInput.type = "text";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/open%20eye.svg";
+        } else {
+            passwordConfInput.type = "password";
+            eyeIcon.src = "${pageContext.request.contextPath}/img/close%20eye.svg";
+        }
+    }
+</script>
+</body>
+</html>
+Проверка:
+Убедись, что файлы open%20eye.svg и close%20eye.svg находятся в папке /img твоего проекта и доступны через ${pageContext.request.contextPath}/img/.
+Проверь в браузере: каждая иконка теперь должна переключать видимость только своего инпута.
+Если что-то не работает или нужно доработать (например, стили), напиши!
+
+
+
+
+
+
+
+ А что ты изменил в моем html файле кроме <script>?
+
+
+
+
+В твоём HTML-файле я изменил только содержимое тега <script>. Никаких других изменений в разметке, стилях или структуре не было. Вот что конкретно я сделал:
+
+Изменения в <script>:
+Исправил ошибку в togglePasswordConf:
+Было: const passwordConfInput = document.getElementById("password"); — ты случайно использовал id="password" вместо id="passwordConf".
+Стало: const passwordConfInput = document.getElementById("passwordConf"); — теперь функция работает с правильным инпутом.
+Исправил выбор иконки:
+Было: const eyeIcon = document.querySelector(".inputBox__img"); — это всегда выбирало первую иконку на странице, из-за чего обе функции влияли на одну и ту же иконку.
+Стало: const eyeIcon = passwordInput.closest(".formBox__passwordBox").querySelector(".inputBox__img"); (и аналогично в togglePasswordConf) — теперь каждая функция находит иконку внутри своего контейнера .formBox__passwordBox, что делает их независимыми.
+Что осталось без изменений:
+Весь HTML-код (структура формы, классы, атрибуты, пути к файлам и т.д.).
+Подключённые стили (reset.css и style.css).
+JSP-директивы и логика (<%@ page %>, <% if %> и т.д.).
+Всё остальное вне <script>.
+Если хочешь, могу показать diff (разницу) между твоим оригинальным <script> и исправленным, чтобы было ещё понятнее. Просто скажи!
+
+
+
+
+
+
+
+А хорошо, а можно как то добавлять пользователей в мою датабазу на sql через jsp?
+
+
+
+
+Веб-страницы 25
+Конечно, можно добавлять пользователей в базу данных SQL через JSP! В твоём случае, у тебя уже есть форма регистрации в файле JSP, и я покажу, как можно сохранить данные из этой формы (например, firstName, lastName, email, phoneNumber, password) в SQL базу данных. Мы будем использовать JDBC (Java Database Connectivity) для подключения к базе данных и выполнения SQL-запроса INSERT.
+
+Шаги для добавления пользователей в базу данных:
+Создай таблицу в базе данных.
+Сначала нужно создать таблицу в твоей SQL базе данных для хранения пользователей. Например, если ты используешь MySQL, PostgreSQL или другую СУБД, выполни такой SQL-запрос:
+
+sql
+
+Свернуть
+
+Перенос
+
+Копировать
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- уникальный ID, автоинкремент
+    first_name VARCHAR(50) NOT NULL,  -- имя
+    last_name VARCHAR(50) NOT NULL,   -- фамилия
+    email VARCHAR(100) NOT NULL UNIQUE, -- email, уникальный
+    phone_number VARCHAR(20),         -- номер телефона
+    password VARCHAR(255) NOT NULL    -- пароль (лучше хранить хэш)
+);
+Замени типы данных и размеры (VARCHAR(50), VARCHAR(100)) в зависимости от твоих требований.
+
+Обнови JSP для обработки данных.
+Мы разделим логику: одна JSP-страница будет показывать форму, а другая (или сервлет) будет обрабатывать данные и добавлять их в базу.
+
+Текущая JSP (форма):
+Твой текущий код формы уже подходит, но я оставлю его без изменений для примера. Форма отправляет данные методом POST на маршрут ${pageContext.request.contextPath}/router?page=login, но мы изменим это на обработчик, например, register.jsp.
+
+Новая JSP (обработчик — register.jsp):
+Создай новый файл, например, register.jsp, который будет обрабатывать данные формы и добавлять их в базу данных.
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.sql.*" %>
+<%
+    // Получаем данные из формы
+    String firstName = request.getParameter("firstName");
+    String lastName = request.getParameter("lastName");
+    String email = request.getParameter("email");
+    String phoneNumber = request.getParameter("phoneNumber");
+    String password = request.getParameter("password");
+
+    // Переменные для JDBC
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+
+    try {
+        // 1. Загружаем драйвер JDBC (для MySQL, например)
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // 2. Устанавливаем соединение с базой данных
+        String url = "jdbc:mysql://localhost:3306/your_database_name"; // замени на свою базу
+        String dbUser = "root"; // твой пользователь базы данных
+        String dbPassword = "your_password"; // твой пароль базы данных
+        conn = DriverManager.getConnection(url, dbUser, dbPassword);
+
+        // 3. Создаём SQL-запрос для вставки данных
+        String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, firstName);
+        pstmt.setString(2, lastName);
+        pstmt.setString(3, email);
+        pstmt.setString(4, phoneNumber);
+        pstmt.setString(5, password); // В реальном проекте используй хэширование пароля!
+
+        // 4. Выполняем запрос
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            out.println("<p>Пользователь успешно зарегистрирован!</p>");
+        } else {
+            out.println("<p>Ошибка при регистрации.</p>");
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.println("<p>Ошибка: " + e.getMessage() + "</p>");
+    } finally {
+        // 5. Закрываем ресурсы
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+    }
+%>
+<a href="${pageContext.request.contextPath}/router?page=login">Войти</a>
+Обнови форму в исходном JSP.
+Измени атрибут action в форме, чтобы она отправляла данные на register.jsp:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<form action="${pageContext.request.contextPath}/register.jsp" method="POST" id="signupForm">
+Остальная часть формы остаётся без изменений.
+
+Добавь зависимость JDBC.
+Убедись, что у тебя в проекте есть драйвер JDBC для твоей базы данных. Например, для MySQL:
+
+Скачай mysql-connector-java-x.x.xx.jar (например, с сайта MySQL).
+Помести его в папку WEB-INF/lib твоего проекта.
+Настройка окружения.
+
+Замени your_database_name, root, и your_password в register.jsp на реальные данные твоей базы.
+Убедись, что сервер базы данных (например, MySQL) запущен.
+Лучшая практика: Используй сервлет вместо JSP
+Хотя этот пример работает, писать Java-код прямо в JSP не рекомендуется для больших проектов. Лучше создать сервлет для обработки данных:
+
+Пример сервлета (RegisterServlet.java):
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+import java.io.*;
+import java.sql.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class RegisterServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", "root", "your_password");
+            String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phoneNumber);
+            pstmt.setString(5, password);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                out.println("<p>Регистрация успешна!</p>");
+            } else {
+                out.println("<p>Ошибка регистрации.</p>");
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>Ошибка: " + e.getMessage() + "</p>");
+        }
+    }
+}
+Зарегистрируй сервлет в web.xml:
+xml
+
+Свернуть
+
+Перенос
+
+Копировать
+<servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>RegisterServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+</servlet-mapping>
+Обнови action формы:
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<form action="${pageContext.request.contextPath}/register" method="POST" id="signupForm">
+Безопасность:
+Хэшируй пароли: Не храни пароли в открытом виде. Используй библиотеку вроде BCrypt для хэширования.
+SQL-инъекции: Использование PreparedStatement (как в примере) защищает от инъекций.
+Если у тебя есть вопросы или нужно что-то уточнить (например, подключение к конкретной базе), напиши!
+
+
+
+
+
+
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.*;
+import java.sql.*;
+
+
+public class RegisterServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:5432/postgres", "postgres", "beh123mut1195");
+            String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phoneNumber);
+            pstmt.setString(5, password);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                out.println("<p>Регистрация успешна!</p>");
+            } else {
+                out.println("<p>Ошибка регистрации.</p>");
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>Ошибка: " + e.getMessage() + "</p>");
+        }
+    }
+}
+
+Я переместил этот сервлет, а также изменил акшн формы на ${pageContext.request.contextPath}/router?page=register
+При этом создал jsp файл а также вот мой xml файл
+
+
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>router</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+</web-app>
+
+
+
+
+
+Я вижу, что ты переместил логику в сервлет RegisterServlet и обновил web.xml, но есть несколько моментов, которые нужно исправить, чтобы всё заработало корректно. Давай разберёмся по шагам:
+
+Проблемы в текущем коде
+Несоответствие базы данных и JDBC-драйвера:
+Ты используешь com.mysql.cj.jdbc.Driver (драйвер для MySQL), но в URL подключения указал jdbc:mysql://localhost:5432/postgres. Порт 5432 и имя базы postgres характерны для PostgreSQL, а не MySQL.
+Для PostgreSQL нужно использовать драйвер org.postgresql.Driver и URL вида jdbc:postgresql://localhost:5432/postgres.
+Action формы и маршрутизация:
+Ты изменил action формы на ${pageContext.request.contextPath}/router?page=register, но в web.xml сервлет привязан к /register. Если у тебя есть какой-то маршрутизатор (router), он должен перенаправлять запрос на сервлет /register. Если маршрутизатора нет, нужно указать в action прямой путь к сервлету: ${pageContext.request.contextPath}/register.
+Отсутствие перенаправления:
+После успешной регистрации пользователь остаётся на странице сервлета с текстом <p>Регистрация успешна!</p>. Лучше перенаправить его на страницу логина или показать JSP с подтверждением.
+JSP-файл:
+Ты упомянул, что создал JSP-файл, но не показал его код. Если он нужен только для отображения результата, я предложу вариант ниже.
+Исправления
+1. Исправленный RegisterServlet.java (для PostgreSQL)
+Поскольку ты указал PostgreSQL в URL, вот исправленный код:
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.*;
+import java.sql.*;
+
+public class RegisterServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+
+        try {
+            // Драйвер для PostgreSQL
+            Class.forName("org.postgresql.Driver");
+            // URL для PostgreSQL
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "beh123mut1195");
+            String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phoneNumber);
+            pstmt.setString(5, password);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                // Перенаправление на страницу логина после успеха
+                response.sendRedirect(request.getContextPath() + "/router?page=login");
+            } else {
+                out.println("<p>Ошибка регистрации.</p>");
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>Ошибка: " + e.getMessage() + "</p>");
+        }
+    }
+}
+Изменения:
+
+Заменил драйвер на org.postgresql.Driver.
+Изменил URL на jdbc:postgresql://....
+После успешной регистрации добавил response.sendRedirect вместо вывода текста.
+2. Обновление формы в исходном JSP
+Если ты используешь маршрутизатор (router), убедись, что он перенаправляет ?page=register на сервлет /register. Если маршрутизатора нет, измени action формы напрямую на сервлет:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<form action="${pageContext.request.contextPath}/register" method="POST" id="signupForm">
+3. Настройка web.xml
+Твой web.xml уже правильно настроен для сервлета:
+
+xml
+
+Свернуть
+
+Перенос
+
+Копировать
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>router</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+</web-app>
+Если у тебя есть маршрутизатор (router), добавь в него логику для обработки ?page=register. Например, если это сервлет, он должен перенаправлять запрос:
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+if ("register".equals(request.getParameter("page"))) {
+    request.getRequestDispatcher("/register").forward(request, response);
+}
+4. Зависимости для PostgreSQL
+Убедись, что в проекте есть драйвер PostgreSQL:
+
+Скачай postgresql-x.x.x.jar (например, postgresql-42.7.3.jar) с сайта PostgreSQL или через Maven:
+xml
+
+Свернуть
+
+Перенос
+
+Копировать
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.3</version>
+</dependency>
+Помести .jar в WEB-INF/lib.
+5. Пример JSP для результата (опционально)
+Если ты хочешь показывать страницу после регистрации вместо перенаправления, создай register-result.jsp:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Result</title>
+</head>
+<body>
+    <h2>Результат регистрации</h2>
+    <% if (request.getAttribute("error") != null) { %>
+        <p style="color: red;"><%= request.getAttribute("error") %></p>
+    <% } else { %>
+        <p>Регистрация успешна!</p>
+        <a href="${pageContext.request.contextPath}/router?page=login">Войти</a>
+    <% } %>
+</body>
+</html>
+Тогда в сервлете вместо sendRedirect используй:
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+if (rows > 0) {
+    request.getRequestDispatcher("/register-result.jsp").forward(request, response);
+} else {
+    request.setAttribute("error", "Ошибка регистрации.");
+    request.getRequestDispatcher("/register-result.jsp").forward(request, response);
+}
+Итоговые шаги
+Исправь RegisterServlet.java как выше (для PostgreSQL).
+Проверь action формы: если есть маршрутизатор, настрой его; если нет, используй /register.
+Убедись, что PostgreSQL запущен, база postgres существует, и таблица users создана (см. SQL выше).
+Добавь драйвер PostgreSQL в проект.
+Если у тебя есть маршрутизатор (router), покажи его код, чтобы я помог настроить перенаправление. Если что-то не работает, напиши, какая ошибка возникает!
+
+
+
+
+
+
+
+package com.example.behasaccproj_rev1;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet("/router")
+public class RouterServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String page = request.getParameter("page");
+        if (page == null || page.isEmpty()) {
+            page = "home";
+        }
+
+        String jspPath = switch (page) {
+            case "home" -> "/WEB-INF/views/index.jsp";
+            case "about" -> "/WEB-INF/views/about.jsp";
+            case "signup" -> "/WEB-INF/views/signup.jsp";
+            case "login" -> "/WEB-INF/views/login.jsp";
+            case "terms" -> "/WEB-INF/views/terms.jsp";
+            case "privacy" -> "/WEB-INF/views/privacy.jsp";
+            case "reset-password" -> "/WEB-INF/views/resetpassword.jsp";
+            case "profile" -> "/WEB-INF/views/profile.jsp";
+            case "register" -> "/WEB-INF/views/register.jsp";
+            default -> "/WEB-INF/views/error.jsp";
+        };
+
+        request.getRequestDispatcher(jspPath).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+}
+
+
+
+
+Спасибо, что показал код RouterServlet. Теперь я понимаю, как у тебя организована маршрутизация. Твой RouterServlet обрабатывает запросы на /router и перенаправляет их на соответствующие JSP-страницы в зависимости от параметра page. Однако в текущей конфигурации есть проблема: ты отправляешь POST-запрос из формы регистрации на /router?page=register, но RouterServlet перенаправляет его на /WEB-INF/views/register.jsp, а не на твой RegisterServlet, который должен обрабатывать регистрацию.
+
+Давай исправим это, чтобы форма регистрации правильно работала с RegisterServlet.
+
+Проблема
+В RouterServlet для page=register ты указал /WEB-INF/views/register.jsp, но обработка данных формы (вставка в базу данных) должна происходить в RegisterServlet, который привязан к /register в web.xml.
+Форма отправляет POST-запрос на /router?page=register, а RouterServlet просто вызывает doGet для POST-запросов и перенаправляет их на JSP, игнорируя логику RegisterServlet.
+Решение
+1. Обнови action формы
+Измени action в форме регистрации так, чтобы она отправляла запрос напрямую на RegisterServlet (/register), а не через RouterServlet:
+
+В твоём signup.jsp замени:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<form action="${pageContext.request.contextPath}/router?page=register" method="POST" id="signupForm">
+на:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<form action="${pageContext.request.contextPath}/register" method="POST" id="signupForm">
+Это позволит форме отправлять данные напрямую в RegisterServlet, минуя RouterServlet.
+
+2. Исправь RegisterServlet
+Твой RegisterServlet уже почти готов, но нужно:
+
+Исправить драйвер и URL для PostgreSQL (как я указал ранее).
+Добавить перенаправление после успешной регистрации.
+Вот исправленный код:
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+package com.example.behasaccproj_rev1; // Укажи правильный пакет, если он другой
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.*;
+import java.sql.*;
+
+public class RegisterServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+
+        try {
+            // Драйвер для PostgreSQL
+            Class.forName("org.postgresql.Driver");
+            // URL для PostgreSQL
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "beh123mut1195");
+            String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phoneNumber);
+            pstmt.setString(5, password);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                // Перенаправление на страницу логина через RouterServlet
+                response.sendRedirect(request.getContextPath() + "/router?page=login");
+            } else {
+                // Если что-то пошло не так, можно передать ошибку на JSP
+                request.setAttribute("error", "Ошибка регистрации.");
+                request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Ошибка: " + e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+        }
+    }
+}
+Изменения:
+
+Исправлен драйвер и URL для PostgreSQL.
+После успешной регистрации перенаправляем на /router?page=login.
+В случае ошибки перенаправляем на register.jsp с сообщением об ошибке.
+3. Обнови RouterServlet
+Твой RouterServlet не должен обрабатывать POST-запросы для регистрации, так как это задача RegisterServlet. Однако, если ты хочешь, чтобы RouterServlet перенаправлял POST-запросы с page=register на /register, можно обновить его так:
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+package com.example.behasaccproj_rev1;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet("/router")
+public class RouterServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String page = request.getParameter("page");
+        if (page == null || page.isEmpty()) {
+            page = "home";
+        }
+
+        String jspPath = switch (page) {
+            case "home" -> "/WEB-INF/views/index.jsp";
+            case "about" -> "/WEB-INF/views/about.jsp";
+            case "signup" -> "/WEB-INF/views/signup.jsp";
+            case "login" -> "/WEB-INF/views/login.jsp";
+            case "terms" -> "/WEB-INF/views/terms.jsp";
+            case "privacy" -> "/WEB-INF/views/privacy.jsp";
+            case "reset-password" -> "/WEB-INF/views/resetpassword.jsp";
+            case "profile" -> "/WEB-INF/views/profile.jsp";
+            case "register" -> "/WEB-INF/views/register.jsp"; // Это для отображения результата, если нужно
+            default -> "/WEB-INF/views/error.jsp";
+        };
+
+        request.getRequestDispatcher(jspPath).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String page = request.getParameter("page");
+        if ("register".equals(page)) {
+            // Перенаправляем POST-запрос на RegisterServlet
+            request.getRequestDispatcher("/register").forward(request, response);
+        } else {
+            doGet(request, response); // Обрабатываем другие POST-запросы как GET
+        }
+    }
+}
+Изменения:
+
+В doPost добавлена проверка: если page=register, запрос перенаправляется на /register (твой RegisterServlet).
+4. web.xml
+Твой web.xml уже настроен правильно для RegisterServlet:
+
+xml
+
+Свернуть
+
+Перенос
+
+Копировать
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>router</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.example.behasaccproj_rev1.RegisterServlet</servlet-class> <!-- Укажи полный путь к классу -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+</web-app>
+Убедись, что <servlet-class> содержит правильный пакет (com.example.behasaccproj_rev1.RegisterServlet).
+
+5. register.jsp (опционально)
+Если ты хочешь показывать результат регистрации, вот пример register.jsp:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Result</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <h2>Результат регистрации</h2>
+    <% if (request.getAttribute("error") != null) { %>
+        <p style="color: red;"><%= request.getAttribute("error") %></p>
+    <% } else { %>
+        <p>Регистрация успешна!</p>
+        <a href="${pageContext.request.contextPath}/router?page=login">Войти</a>
+    <% } %>
+</body>
+</html>
+Как это будет работать
+Пользователь заполняет форму в signup.jsp и отправляет её на /register (или через /router?page=register, если обновлён RouterServlet).
+RegisterServlet обрабатывает POST-запрос, добавляет данные в базу PostgreSQL.
+После успеха перенаправляет на /router?page=login. В случае ошибки показывает register.jsp с сообщением.
+Что нужно проверить
+PostgreSQL: Убедись, что база postgres существует, пользователь postgres с паролем beh123mut1195 настроен, и таблица users создана:
+sql
+
+Свернуть
+
+Перенос
+
+Копировать
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone_number VARCHAR(20),
+    password VARCHAR(255) NOT NULL
+);
+Драйвер: Добавь postgresql-42.7.3.jar в WEB-INF/lib.
+Пакет: Убедись, что RegisterServlet находится в пакете com.example.behasaccproj_rev1.
+Если что-то не работает (например, ошибка подключения к базе), напиши, и я помогу!
+
+
+
+
+
+
+
+Отлично у меня все получилось, а как теперь мне сделать так чтобы уже через /register когда перехожу на /router?page=login мне шла оттуда информация о том получилось ли у меня добавить аккаунт или нет, так как я сделаю pop-up info о том что произошло
+
+
+
+
+Отлично, что всё получилось! Чтобы передать информацию о результате регистрации из RegisterServlet через перенаправление на /router?page=login и показать pop-up на странице логина, нужно передать статус операции (успех или ошибка) через параметры запроса или сессию. Затем в login.jsp можно использовать JavaScript для отображения pop-up на основе этой информации.
+
+Вот пошаговое решение:
+
+1. Обнови RegisterServlet для передачи статуса
+Вместо простого перенаправления на /router?page=login добавим параметр в URL, чтобы указать результат регистрации. Например, success=true или error=сообщение.
+
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+package com.example.behasaccproj_rev1;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.*;
+import java.sql.*;
+
+public class RegisterServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "beh123mut1195");
+            String sql = "INSERT INTO users (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phoneNumber);
+            pstmt.setString(5, password);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                // Успешная регистрация: перенаправляем с параметром success
+                response.sendRedirect(request.getContextPath() + "/router?page=login&success=true");
+            } else {
+                // Ошибка: перенаправляем с параметром error
+                response.sendRedirect(request.getContextPath() + "/router?page=login&error=Ошибка+регистрации");
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Ошибка с сообщением об исключении
+            String errorMessage = java.net.URLEncoder.encode("Ошибка: " + e.getMessage(), "UTF-8");
+            response.sendRedirect(request.getContextPath() + "/router?page=login&error=" + errorMessage);
+        }
+    }
+}
+Изменения:
+
+При успехе добавляем &success=true в URL.
+При ошибке добавляем &error=сообщение, где сообщение кодируется через URLEncoder, чтобы корректно передать пробелы и специальные символы.
+2. Обнови login.jsp для отображения pop-up
+Предположим, у тебя есть login.jsp в /WEB-INF/views/login.jsp. Добавим в него HTML для pop-up и JavaScript для его отображения на основе параметров success или error.
+
+Пример login.jsp:
+
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Loginner</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
+    <style>
+        /* Стили для pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 20px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .popup.success {
+            background-color: #28a745; /* Зеленый для успеха */
+        }
+        .popup.error {
+            background-color: #dc3545; /* Красный для ошибки */
+        }
+    </style>
+</head>
+<body>
+    <!-- Pop-up элемент -->
+    <div id="popup" class="popup"></div>
+
+    <header class="siteHeader">
+        <div class="siteHeader__container container">
+            <div class="siteHeader__imgBox scaleTransition">
+                <a class="siteHeader__linkBox" href="${pageContext.request.contextPath}/">
+                    <img class="siteHeader__img" src="${pageContext.request.contextPath}/img/logo.svg" alt="Loginner Logo"/>
+                    <h1 class="siteHeader__title">Loginner</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="siteMain">
+        <div class="siteMain__container container">
+            <div class="siteMain__formBox">
+                <h2 class="formBox__title">Login</h2>
+                <p class="formBox__text">Enter your credentials to access your account.</p>
+
+                <form action="${pageContext.request.contextPath}/router?page=login" method="POST">
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="email">Email</label>
+                        <input class="inputBox__input" type="email" id="email" name="email" autocomplete="off" required>
+                    </div>
+                    <div class="formBox__inputBox">
+                        <label class="inputBox__label" for="password">Password</label>
+                        <input class="inputBox__input" type="password" id="password" name="password" autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="formBox__submit scaleTransition">Login</button>
+                </form>
+
+                <p class="siteMain__login">
+                    Don’t have an account? <a class="agreement__link scaleTransition" href="${pageContext.request.contextPath}/router?page=signup">Sign Up</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Проверяем параметры в URL и показываем pop-up
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const error = urlParams.get('error');
+        const popup = document.getElementById('popup');
+
+        if (success === 'true') {
+            popup.textContent = 'Регистрация прошла успешно!';
+            popup.classList.add('success');
+            popup.style.display = 'block';
+            // Скрываем через 3 секунды
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        } else if (error) {
+            popup.textContent = decodeURIComponent(error);
+            popup.classList.add('error');
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+Что добавлено:
+
+HTML: Элемент <div id="popup" class="popup"> для отображения уведомления.
+CSS: Стили для pop-up с разными цветами для успеха и ошибки.
+JavaScript:
+Проверяет параметры success и error в URL.
+Показывает pop-up с соответствующим сообщением и классом (success или error).
+Автоматически скрывает pop-up через 3 секунды.
+Как это работает
+После отправки формы в RegisterServlet:
+Если регистрация успешна, перенаправление идёт на /router?page=login&success=true.
+Если ошибка, перенаправление на /router?page=login&error=сообщение.
+RouterServlet обрабатывает /router?page=login и перенаправляет на /WEB-INF/views/login.jsp.
+В login.jsp JavaScript читает параметры из URL и показывает pop-up:
+Для success=true: зелёный pop-up с текстом "Регистрация прошла успешно!".
+Для error: красный pop-up с текстом ошибки.
+Дополнительные улучшения
+Сессия вместо URL: Если не хочешь передавать параметры в URL, можно использовать сессию:
+В RegisterServlet:
+java
+
+Свернуть
+
+Перенос
+
+Копировать
+if (rows > 0) {
+    request.getSession().setAttribute("registerSuccess", "true");
+    response.sendRedirect(request.getContextPath() + "/router?page=login");
+} else {
+    request.getSession().setAttribute("registerError", "Ошибка регистрации");
+    response.sendRedirect(request.getContextPath() + "/router?page=login");
+}
+В login.jsp:
+jsp
+
+Свернуть
+
+Перенос
+
+Копировать
+<script>
+    <% if (session.getAttribute("registerSuccess") != null) { %>
+        const popup = document.getElementById('popup');
+        popup.textContent = 'Регистрация прошла успешно!';
+        popup.classList.add('success');
+        popup.style.display = 'block';
+        setTimeout(() => { popup.style.display = 'none'; }, 3000);
+        <% session.removeAttribute("registerSuccess"); %>
+    <% } else if (session.getAttribute("registerError") != null) { %>
+        const popup = document.getElementById('popup');
+        popup.textContent = '<%= session.getAttribute("registerError") %>';
+        popup.classList.add('error');
+        popup.style.display = 'block';
+        setTimeout(() => { popup.style.display = 'none'; }, 3000);
+        <% session.removeAttribute("registerError"); %>
+    <% } %>
+</script>
+Кастомный стиль: Настрой стили pop-up под дизайн твоего сайта (цвета, шрифты, анимации).
+Проверка
+Убедись, что login.jsp находится в /WEB-INF/views/.
+Попробуй зарегистрироваться:
+Успех: должен появиться зелёный pop-up на странице логина.
+Ошибка (например, дубликат email): красный pop-up с сообщением.
+Если что-то не работает или нужно доработать (например, дизайн pop-up), напиши!
+
+
+
+
+
+
+
+Слушай а можно как то сохранить этот чат в каком то формате чтобы перенести на другой пк?
+
+
+
+
+К сожалению, у меня как у Grok нет встроенной функции для сохранения чата напрямую в файл или передачи его в каком-то формате. Однако ты можешь легко сохранить наш диалог вручную, чтобы перенести его на другой компьютер. Вот несколько способов:
+
+1. Копирование текста в текстовый файл
+Шаги:
+Выдели весь текст нашего чата в интерфейсе (например, кликни правой кнопкой мыши и выбери "Выделить всё" или используй Ctrl+A / Cmd+A).
+Скопируй выделенный текст (Ctrl+C / Cmd+C).
+Открой любой текстовый редактор (например, Блокнот на Windows, TextEdit на Mac или Notepad++).
+Вставь текст (Ctrl+V / Cmd+V).
+Сохрани файл с расширением .txt, например, chat_with_grok.txt.
+Перенеси файл на другой компьютер через флешку, email или облако (Google Drive, Dropbox и т.д.).
+Плюсы: Просто и быстро.
+Минусы: Форматирование (жирный текст, код) может потеряться, если редактор не поддерживает Markdown.
+2. Сохранение как HTML-страницу
+Если ты хочешь сохранить чат с форматированием:
+
+Шаги:
+В браузере, где открыт наш чат, нажми правой кнопкой мыши на странице и выбери "Сохранить как..." (или Ctrl+S / Cmd+S).
+Выбери формат "Веб-страница, полностью" (Webpage, Complete). Это сохранит HTML-файл и папку с ресурсами (если есть изображения).
+Назови файл, например, chat_with_grok.html, и сохрани.
+Перенеси файл (и папку, если она создалась) на другой компьютер.
+Открой файл в браузере на новом ПК.
+Плюсы: Сохраняет форматирование и структуру.
+Минусы: Может включать лишние элементы интерфейса платформы, а не только сам чат.
+3. Экспорт в PDF
+Если тебе нужен более портативный формат с форматированием:
+
+Шаги:
+Открой чат в браузере.
+Нажми Ctrl+P / Cmd+P (или выбери "Печать" в меню браузера).
+В настройках печати выбери "Сохранить как PDF" вместо принтера.
+Сохрани файл, например, как chat_with_grok.pdf.
+Перенеси PDF на другой компьютер.
+Плюсы: Удобно для чтения, сохраняет форматирование.
+Минусы: Нельзя редактировать текст напрямую.
+4. Копирование в Markdown (для разработчиков)
+Если ты хочешь сохранить чат с форматированием кода и текста в удобном для разработчиков формате:
+
+Шаги:
+Скопируй текст чата, как в первом способе.
+Вставь его в редактор, поддерживающий Markdown (например, VS Code, Obsidian, Typora).
+Вручную добавь форматирование, если нужно:
+Заголовки: #, ##, и т.д.
+Код: оберни в ``` для блоков кода.
+Жирный текст: **текст**.
+Сохрани как .md, например, chat_with_grok.md.
+Перенеси файл на другой ПК.
+Плюсы: Лёгкий, читаемый формат, идеален для технических заметок.
+Минусы: Требует ручного форматирования.
+Рекомендация
+Для простоты я бы посоветовал PDF (способ 3), так как он сохранит структуру и форматирование, и его легко открыть на любом устройстве. Если тебе нужен только текст для дальнейшей работы, используй текстовый файл (способ 1).
+
+Если у тебя есть конкретный формат или инструмент, который ты предпочитаешь (например, Word, Google Docs), напиши, и я подскажу, как адаптировать процесс!
+
+
+
+https://www.figma.com/community/website-templates/landing-pages?resource_type=mixed&editor_type=figma&price=all&sort_by=all_time&creators=all
